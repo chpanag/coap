@@ -13,17 +13,18 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
 
-public class CoapTempServer extends CoapServer {
+public class MyCoapServer extends CoapServer {
 
     Faker faker = new Faker();
     private static final int COAP_PORT =
             Configuration.getStandard().get( CoapConfig.COAP_PORT );
-    private static final String tempUnti = "F";
-    float temperature = 70;
+    private static final String tempUnti = "C";
+    float temperature = 20;
+    float humidity = 70;
 
     public static void main(String[] args) {
         try {
-            CoapTempServer server = new CoapTempServer();
+            MyCoapServer server = new MyCoapServer();
             server.start();
         }
         catch ( Exception e ) {
@@ -31,10 +32,11 @@ public class CoapTempServer extends CoapServer {
         }
     }
 
-    public CoapTempServer() throws SocketException {
+    public MyCoapServer() throws SocketException {
         super();
         addEndpoints();
         add( new TemperatureResource() );
+        add( new HumidityResource() );
     }
 
     private void addEndpoints() {
@@ -53,7 +55,7 @@ public class CoapTempServer extends CoapServer {
 
     class TemperatureResource extends CoapResource {
         public TemperatureResource() {
-            super("temp"); // set resource URI identifier
+            super("temperature"); // set resource URI identifier
             getAttributes().setTitle("Server room temperature");
         }
 
@@ -61,7 +63,21 @@ public class CoapTempServer extends CoapServer {
         public void handleGET(CoapExchange exchange) {
             // get latest temperature reading and return it
             temperature = faker.number().numberBetween(0, 40);
-            exchange.respond(temperature + " degrees " + "Celsiux");
+            exchange.respond(temperature + tempUnti);
+        }
+    }
+
+    class HumidityResource extends CoapResource {
+        public HumidityResource() {
+            super("humidity"); // set resource URI identifier
+            getAttributes().setTitle("Server room humidity");
+        }
+
+        @Override
+        public void handleGET(CoapExchange exchange) {
+            // get latest temperature reading and return it
+            humidity = faker.number().numberBetween(50, 80);
+            exchange.respond(humidity + " % " );
         }
     }
 }
