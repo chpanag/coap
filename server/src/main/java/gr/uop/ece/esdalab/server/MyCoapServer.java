@@ -1,4 +1,4 @@
-package groupId;
+package gr.uop.ece.esdalab.server;
 
 import net.datafaker.Faker;
 import org.eclipse.californium.core.CoapResource;
@@ -12,8 +12,17 @@ import org.eclipse.californium.elements.util.NetworkInterfacesUtil;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.util.logging.Logger;
 
 public class MyCoapServer extends CoapServer {
+
+    private static Logger LOGGER = null;
+
+    static {
+        System.setProperty("java.util.logging.SimpleFormatter.format",
+                "[%1$tF %1$tT] [%4$-7s] %5$s %n");
+        LOGGER = Logger.getLogger(MyCoapServer.class.getName());
+    }
 
     Faker faker = new Faker();
     private static final int COAP_PORT =
@@ -26,6 +35,8 @@ public class MyCoapServer extends CoapServer {
         try {
             MyCoapServer server = new MyCoapServer();
             server.start();
+            LOGGER.info("COAP server is running on localhost:" + COAP_PORT);
+
         }
         catch ( Exception e ) {
             System.err.println("CoAP server err: " + e.getMessage());
@@ -75,7 +86,7 @@ public class MyCoapServer extends CoapServer {
 
         @Override
         public void handleGET(CoapExchange exchange) {
-            // get latest temperature reading and return it
+            // get latest humidity reading and return it
             humidity = faker.number().numberBetween(50, 80);
             exchange.respond(humidity + " % " );
         }

@@ -1,0 +1,18 @@
+= COAP
+
+== Server
+
+=== Requirements
+* Docker engine installed
+
+=== Run the server
+`$ docker-compose up -d`
+
+=== Follow the logs
+`$ docker-compose logs -f`
+
+=== Available endpoints
+```
+coap://localhost:5683/temperature
+coap://localhost:5683/humidity
+```

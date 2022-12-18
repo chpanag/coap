@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    coap-server:
+        image: esdalab/coap-server
+        build:
+            context: .
+            dockerfile: Dockerfile.server
+        ports:
+            - 5683:5683
+
