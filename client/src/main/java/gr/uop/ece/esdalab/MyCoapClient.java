@@ -8,13 +8,15 @@ import org.eclipse.californium.elements.exception.ConnectorException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.logging.Logger;
 
 public class MyCoapClient {
     public static void main(String[] args)
             throws URISyntaxException, ConnectorException, IOException {
 
         // make synchronous get call
-        URI uri = new URI("coap://localhost:5683/temperature");
+        System.out.println("GET TEMP");
+        URI uri = new URI("coap://18.196.160.156:5684/temperature");
         CoapClient client = new CoapClient(uri);
         CoapResponse response = client.get();
         if ( response != null ) {
@@ -28,7 +30,7 @@ public class MyCoapClient {
         }
 
 
-        uri = new URI("coap://localhost:5683/humidity");
+        uri = new URI("coap://18.196.160.156:5684/humidity");
         client = new CoapClient(uri);
         response = client.get();
         if ( response != null ) {

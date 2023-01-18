@@ -3,7 +3,7 @@ FROM openjdk:17
 COPY . /coap
 WORKDIR coap
 
-RUN ./mvnw clean install -DskipTests
+RUN ./mvnw clean assembly:assembly -DskipTests -f server/pom.xml
 
-RUN ls server/target
-ENTRYPOINT ["java","-jar","/server/target/server-1.0-SNAPSHOT.jar"]
+RUN ls /coap/server/target
+ENTRYPOINT ["java","-jar","/coap/server/target/server-1.0-SNAPSHOT-jar-with-dependencies.jar"]
