@@ -1,4 +1,9 @@
 FROM openjdk:17
 
-COPY server/target/server-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+COPY . /coap
+WORKDIR coap
+
+RUN ./mvnw clean install -DskipTests
+
+RUN ls server/target
+ENTRYPOINT ["java","-jar","/server/target/server-1.0-SNAPSHOT.jar"]
