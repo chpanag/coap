@@ -72,9 +72,10 @@ public class MyCoapServer extends CoapServer {
 
         @Override
         public void handleGET(CoapExchange exchange) {
+            LOGGER.info("handleGET temperature");
             // get latest temperature reading and return it
             temperature = faker.number().numberBetween(0, 40);
-            exchange.respond(temperature + tempUnti);
+            exchange.respond(String.valueOf(temperature));
         }
     }
 
@@ -86,9 +87,10 @@ public class MyCoapServer extends CoapServer {
 
         @Override
         public void handleGET(CoapExchange exchange) {
+            LOGGER.info("handleGET humidity");
             // get latest humidity reading and return it
             humidity = faker.number().numberBetween(50, 80);
-            exchange.respond(humidity + " % " );
+            exchange.respond(String.valueOf(humidity));
         }
     }
 }
