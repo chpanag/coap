@@ -34,6 +34,7 @@ public class MyCoapServer extends CoapServer {
     public static void main(String[] args) {
         try {
             MyCoapServer server = new MyCoapServer();
+            server.addEndpoints();
             server.start();
             LOGGER.info("COAP server is running on localhost:" + COAP_PORT);
 
@@ -45,13 +46,13 @@ public class MyCoapServer extends CoapServer {
 
     public MyCoapServer() throws SocketException {
         super();
-        addEndpoints();
         add( new TemperatureResource() );
         add( new HumidityResource() );
     }
 
     private void addEndpoints() {
         Configuration config = Configuration.getStandard();
+
         // Add an endpoint listener for each host network interface
         for (InetAddress addr :
                 NetworkInterfacesUtil.getNetworkInterfaces()) {

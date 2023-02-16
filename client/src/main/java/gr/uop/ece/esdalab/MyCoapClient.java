@@ -1,6 +1,10 @@
 package gr.uop.ece.esdalab;
 
 import org.eclipse.californium.core.*;
+import org.eclipse.californium.core.config.CoapConfig;
+import org.eclipse.californium.core.network.CoapEndpoint;
+import org.eclipse.californium.elements.config.TcpConfig;
+import org.eclipse.californium.elements.config.UdpConfig;
 import org.eclipse.californium.elements.exception.ConnectorException;
 
 import java.io.BufferedReader;
@@ -12,17 +16,17 @@ import java.net.URISyntaxException;
 public class MyCoapClient {
     public static void main(String[] args) throws ConnectorException, IOException, URISyntaxException {
 
-        CoapClient client = new CoapClient(new URI("coap://18.196.160.156:5683/humidity"));
+        CoapConfig.register();
+        UdpConfig.register();
+        TcpConfig.register();
+
+        CoapClient client = new CoapClient("coap://localhost:5683/humidity");
         client.setTimeout(10L);
 
         CoapResponse response = client.get();
-        if ( response != null ) {
-            byte[] bytes = response.getPayload();
-            System.out.println(response.getCode());
-            System.out.println(response.getOptions());
-            System.out.println(response.getResponseText());
-            System.out.println("\nDETAILED RESPONSE:");
-            System.out.println(Utils.prettyPrint(response));
-        }
+        System.out.println(client.get().toString());
+        System.out.println(client.get().getResponseText());
+        System.out.println(client.get().getCode());
+
     }
 }
