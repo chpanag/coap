@@ -26,7 +26,7 @@ public class MyCoapClient {
         CoapResponse response = client.get();
         System.out.println(client.get().toString());
         System.out.println(client.get().getResponseText());
-        System.out.println(client.get().getCode());
+//        System.out.println(client.get().getCode());
 
     }
 }

@@ -63,6 +63,11 @@ public class MyCoapServer extends CoapServer {
             builder.setConfiguration(config);
             addEndpoint( builder.build() );
         }
+        CoapEndpoint.Builder builder = new CoapEndpoint.Builder();
+        builder.setInetSocketAddress(new InetSocketAddress("localhost", COAP_PORT));
+        builder.setConfiguration(config);
+        addEndpoint( builder.build() );
+
     }
 
     class TemperatureResource extends CoapResource {
