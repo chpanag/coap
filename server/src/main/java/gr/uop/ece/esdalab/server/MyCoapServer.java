@@ -27,7 +27,7 @@ public class MyCoapServer extends CoapServer {
     Faker faker = new Faker();
     private static final int COAP_PORT =
             Configuration.getStandard().get( CoapConfig.COAP_PORT );
-    private static final String tempUnti = "C";
+    private static final String tempUnit = "C";
     float temperature = 20;
     float humidity = 70;
 
@@ -74,7 +74,9 @@ public class MyCoapServer extends CoapServer {
         public void handleGET(CoapExchange exchange) {
             // get latest temperature reading and return it
             temperature = faker.number().numberBetween(0, 40);
-            exchange.respond(temperature + tempUnti);
+            String payload = "Temperature: " + String.valueOf(temperature) + tempUnit;
+            LOGGER.info(payload);
+            exchange.respond(payload);
         }
     }
 

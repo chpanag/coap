@@ -40,5 +40,31 @@ public class MyCoapClient {
             System.out.println("\nDETAILED RESPONSE:");
             System.out.println(Utils.prettyPrint(response));
         }
+
+        uri = new URI("coap://coap.me:5683/hello");
+        client = new CoapClient(uri);
+        response = client.get();
+        if ( response != null ) {
+//            byte[] bytes = response.getPayload();
+
+            System.out.println(response.getCode());
+            System.out.println(response.getOptions());
+            System.out.println(response.getResponseText());
+            System.out.println("\nDETAILED RESPONSE:");
+            System.out.println(Utils.prettyPrint(response));
+        }
+
+        uri = new URI("coap://coap.esdalab.ece.uop.gr/humidity");
+        client = new CoapClient(uri);
+        response = client.get();
+        if ( response != null ) {
+//            byte[] bytes = response.getPayload();
+
+            System.out.println(response.getCode());
+            System.out.println(response.getOptions());
+            System.out.println(response.getResponseText());
+            System.out.println("\nDETAILED RESPONSE:");
+            System.out.println(Utils.prettyPrint(response));
+        }
     }
 }

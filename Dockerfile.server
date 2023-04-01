@@ -1,4 +1,12 @@
-FROM openjdk:17
+FROM maven:3.8.3-openjdk-17
 
-COPY server/target/server-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
+COPY . /app/
+RUN pwd
+RUN ls
+RUN mvn clean install -DskipTests -f /app/server/pom.xml
+RUN ls
+RUN pwd
+
+RUN cp /server/target/server-1.0-SNAPSHOT-jar-with-dependencies.jar app.jar
+
 ENTRYPOINT ["java","-jar","/app.jar"]
