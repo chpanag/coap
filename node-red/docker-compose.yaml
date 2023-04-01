@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  nodered:
+    container_name: nodered
+    build:
+      context: .
+    image: chpanag/node-red:1.0
+    ports:
+      - 1880:1880
+      - 5684:5683
+    volumes:
+      - node_red_data:/data
+
+volumes:
+  node_red_data:
