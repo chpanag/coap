@@ -7,5 +7,5 @@ services:
             context: .
             dockerfile: Dockerfile.server
         ports:
-            - 5683:5683
+            - 5683:5683/udp
 
